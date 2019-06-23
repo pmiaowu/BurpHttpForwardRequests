@@ -1,0 +1,14 @@
+baidu.com
+www.baidu.com
+google.cn
+www.google.cn
+sogou.com
+www.sogou.com
+so.com
+www.so.com
+hao123.com
+www.hao123.com
+butian.net
+www.butian.net
+cn.bing.com
+github.com
