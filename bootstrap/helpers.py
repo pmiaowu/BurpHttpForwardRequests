@@ -53,7 +53,10 @@ def blackUrlList():
             line = f.readline()
             if not line:
                 break
-            black_url_list.append(line.replace("\n", ''))
+            line = line.replace("\r\n", '')
+            line = line.replace("\n", '')
+            line = line.replace("\r", '')
+            black_url_list.append(line)
         f.close()
 
     return black_url_list
