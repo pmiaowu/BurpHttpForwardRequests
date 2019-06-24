@@ -72,6 +72,13 @@ class BurpExtender(IBurpExtender, IHttpListener):
 
         req_url = self.getRequestUrl(protocol, port, req_headers)
 
+        # 获取响应包的信息
+        res_headers, res_status_code, res_stated_mime_type, res_bodys = self.getResponseInfo(messageInfo.getResponse())
+
+        # 黑名单资源不转发-避免一些无用的url也进行扫描
+        if res_stated_mime_type in ['CSS', 'JPEG', 'GIF', 'PNG', 'image', 'video']:
+            return
+
         # 判断是否开启url重复验证
         if self.tags.urlRepeatedBox():
             # 判断是否重复url
@@ -108,6 +115,22 @@ class BurpExtender(IBurpExtender, IHttpListener):
         req_parameters = analyzedRequest.getParameters()
 
         return analyzedRequest, req_headers, req_method, req_parameters
+
+    # 获取响应的信息
+    # 响应头,响应内容,响应状态码
+    def getResponseInfo(self, response):
+        analyzedResponse = self._helpers.analyzeResponse(response)
+
+        # 响应中包含的HTTP头信息
+        res_headers = analyzedResponse.getHeaders()
+        # 响应中包含的HTTP状态代码
+        res_status_code = analyzedResponse.getStatusCode()
+        # 响应中返回的数据返回类型
+        res_stated_mime_type = analyzedResponse.getStatedMimeType()
+        # 响应中返回的正文内容
+        res_bodys = response[analyzedResponse.getBodyOffset():].tostring() 
+
+        return res_headers, res_status_code, res_stated_mime_type, res_bodys
 
     # 获取请求url
     def getRequestUrl(self, protocol, port, req_headers):
