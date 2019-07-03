@@ -13,7 +13,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 NAME = u'http请求转发插件'
-VERSION = '1.0'
+VERSION = '1.0.1'
 
 # 是否启动插件
 IS_START = True
@@ -69,6 +69,11 @@ class BurpExtender(IBurpExtender, IHttpListener):
         # 获取请求的信息
         request = messageInfo.getRequest()
         analyzedRequest, req_headers, req_method, req_parameters = self.getRequestInfo(request)
+
+        # Url调试功能
+        for parameters in req_parameters:
+            if parameters.getName() == 'is_burp_debug' and parameters.getValue() == 'True':
+                return
 
         req_url = self.getRequestUrl(protocol, port, req_headers)
 

@@ -57,3 +57,23 @@ Jython环境安装包: http://search.maven.org/remotecontent?filepath=org/python
 
 ![](./readme/images/5.png)
 
+# Url调试功能添加
+
+新参数: is_burp_debug=True/False
+请求方法: Get
+
+功能: 如果您想调试某个url但是又不想此插件转发请求出去可以通过此功能实现
+
+## Url调试功能例子:
+
+例如说我现在有一个url: https://github.com/pmiaowu
+
+以前我们一访问他请求就转发到“Burp Scanner模块”了
+
+现在您可以输入: https://github.com/pmiaowu?is_burp_debug=True
+
+那么此请求就不会转发了 :)
+
+
+
+
