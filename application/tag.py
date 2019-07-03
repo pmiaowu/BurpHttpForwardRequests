@@ -39,7 +39,6 @@ class tag(ITab):
         self.tabs = JTabbedPane()
 
         self.settings = JPanel(GridBagLayout())
-        self.blackSettings = JPanel(GridBagLayout())
         
         c = GridBagConstraints()
 
