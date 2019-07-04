@@ -12,3 +12,4 @@ butian.net
 www.butian.net
 cn.bing.com
 github.com
+site.browser.360.cn
