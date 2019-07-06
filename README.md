@@ -4,12 +4,13 @@
 
 注意: 该插件只会在以下几个burp模块运行
 - Burp Proxy模块
+- Burp Repeater模块
 
 此插件最大的作用就是配合作者其他的Burp插件进行漏洞扫描
 
 # 功能
 
-此插件会把所有的“Burp Proxy模块请求”转发到“Burp Scanner模块”进行扫描
+此插件会把所有的“Burp Proxy模块/Burp Repeater模块”请求转发到“Burp Scanner模块”进行扫描
 
 # 安装过程
 
@@ -56,6 +57,7 @@ Jython环境安装包: http://search.maven.org/remotecontent?filepath=org/python
 # Tag面板配置项
 
 ![](./readme/images/5.png)
+![](./readme/images/10.png)
 
 # Url调试功能添加
 
