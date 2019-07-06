@@ -13,14 +13,9 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 NAME = u'http请求转发插件'
-VERSION = '1.0.1'
+VERSION = '1.0.2'
 
-# 是否启动插件
-IS_START = True
-
-# 是否启动url重复验证
-# True 开启验证, False 关闭验证
-URL_REPEATED_VERIFY = True
+MODULE = {4: 'proxy', 64: 'repeater'}
 
 class BurpExtender(IBurpExtender, IHttpListener):
 
@@ -35,7 +30,7 @@ class BurpExtender(IBurpExtender, IHttpListener):
         callbacks.registerHttpListener(self)
 
         # 界面加载
-        self.tags = tag(self._callbacks, NAME, IS_START, URL_REPEATED_VERIFY)
+        self.tags = tag(self._callbacks, NAME)
         self.tags.tagLoad()
 
         print(u'%s-加载成功' % (NAME))
@@ -52,8 +47,8 @@ class BurpExtender(IBurpExtender, IHttpListener):
         if messageIsRequest:
             return
 
-        # 只处理Proxy模块的请求
-        if toolFlag not in [4]:
+        # 只处理白名单模块的请求
+        if toolFlag not in self.tags.getWhiteListModule():
             return
 
         if self.tags.isStartBox() == False:
@@ -85,15 +80,19 @@ class BurpExtender(IBurpExtender, IHttpListener):
             return
 
         # 判断是否开启url重复验证
-        if self.tags.urlRepeatedBox():
+        if self.tags.urlRepeatedBox() and toolFlag != 64:
             # 判断是否重复url
             if helpers.isRepeatedUrl(host, req_url):
                 return
 
         # 把请求发给扫描模块
         self._callbacks.doActiveScan(host, port, is_https, request) 
-
+        
+        print('')
+        print('===================================')
+        print(u'来至模块: %s' % (MODULE[toolFlag]))
         print(u'请求转发成功 url: %s' % (req_url))
+        print('===================================')
         print('')
 
     # 获取请求包返回的服务信息
