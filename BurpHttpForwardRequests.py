@@ -13,7 +13,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 NAME = u'http请求转发插件'
-VERSION = '1.0.2'
+VERSION = '1.0.3'
 
 MODULE = {4: 'proxy', 64: 'repeater'}
 
@@ -65,6 +65,21 @@ class BurpExtender(IBurpExtender, IHttpListener):
                 black_url = black_url.replace('*.', '')
                 if host.find(black_url) >= 0:
                     return
+
+        # 判断是否处于白名单模式
+        if self.tags.getWhiteList():
+            is_white_url = False
+            for white_url in self.tags.getWhiteList():
+                if white_url == host:
+                    is_white_url = True
+                    break
+                elif white_url[0] == '*' and white_url[1] == '.':
+                    white_url = white_url.replace('*.', '')
+                    if host.find(white_url) >= 0:
+                        is_white_url = True
+                        break
+            if is_white_url == False:
+                return
 
         # 获取请求的信息
         request = messageInfo.getRequest()
