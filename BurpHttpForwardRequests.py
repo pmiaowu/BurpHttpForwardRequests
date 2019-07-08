@@ -47,19 +47,24 @@ class BurpExtender(IBurpExtender, IHttpListener):
         if messageIsRequest:
             return
 
-        # 只处理白名单模块的请求
-        if toolFlag not in self.tags.getWhiteListModule():
+        if self.tags.isStartBox() == False:
             return
 
-        if self.tags.isStartBox() == False:
+        # 只处理白名单模块的请求
+        if toolFlag not in self.tags.getWhiteListModule():
             return
 
         # 获取请求包返回的服务信息
         host, port, protocol, is_https = self.getServerInfo(messageInfo.getHttpService())
 
         # 判断是否处于url黑名单之中
-        if host in helpers.blackUrlList():
-            return
+        for black_url in helpers.blackUrlList():
+            if black_url == host:
+                return
+            elif black_url[0] == '*' and black_url[1] == '.':
+                black_url = black_url.replace('*.', '')
+                if host.find(black_url) >= 0:
+                    return
 
         # 获取请求的信息
         request = messageInfo.getRequest()
