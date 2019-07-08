@@ -34,7 +34,7 @@ Jython环境安装包: http://search.maven.org/remotecontent?filepath=org/python
 
 # 注意项-关于请求不转发的问题
 
-如果你发现一个“Burp Proxy模块请求”第一次可以成功转发到“Burp Scanner模块”,后面都不转发了,请注意,这不是Bug!!!,这不是Bug!!!,这不是Bug!!!
+如果你发现一个“Burp Proxy模块请求”第一次可以成功转发到“Burp Scanner模块”,后面都不转发了,请注意这不是Bug!!!,这不是Bug!!!,这不是Bug!!!
 
 这是因为我添加了Url重复检测的判断
 
@@ -51,6 +51,7 @@ Jython环境安装包: http://search.maven.org/remotecontent?filepath=org/python
 在根目录你可以看到“black_url.txt”文件,打开此文件,一行一域名添加即可
 
 过滤某个域名: www.domain.com
+
 过滤某个域名的全部子域名: *.domain.com
 
 每个在“black_url.txt”文件里面的url此插件都不会进行转发
@@ -62,7 +63,9 @@ Jython环境安装包: http://search.maven.org/remotecontent?filepath=org/python
 白名单里面如果有数据,那么此插件就只会转发白名单里面的域名请求
 
 注意: 如果黑名单与白名单的域名冲突的话,那么黑名单的执行优先级更高!!!!!
+
 注意: 如果黑名单与白名单的域名冲突的话,那么黑名单的执行优先级更高!!!!!
+
 注意: 如果黑名单与白名单的域名冲突的话,那么黑名单的执行优先级更高!!!!!
 
 ![](./readme/images/11.png)
