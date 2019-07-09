@@ -213,7 +213,7 @@ class tag(ITab):
 
         # 向文本框添加数据
         for name in white_list_names:
-            self.white_list_text_area.append(name + '\r\n' + os.linesep)
+            self.white_list_text_area.append(name + '\n' + os.linesep)
         c.gridx = 1
         c.gridy = 1
         sp = JScrollPane(self.white_list_text_area)
@@ -256,8 +256,14 @@ class tag(ITab):
     
     # 获取指定text数据
     def text_area_to_list(self, text_area):
-        l = text_area.getText().strip().split('\n')
-        return l if l != [''] else []
+        l = []
+        text_list = text_area.getText().strip().split('\n')
+        for data in text_list:
+            data = data.replace("\n", '')
+            data = data.replace("\r", '')
+            data = data.strip(' ')
+            l.append(data)
+        return l
 
 class TextAreaMouseListener(MouseAdapter):
     def __init__(self, text_area):
@@ -289,7 +295,7 @@ class ButtonHandlers:
 
     def handler_add(self, event):
         name = self.text_field.getText()
-        self.text_area.append(name + '\r\n' + os.linesep)
+        self.text_area.append(name + '\n' + os.linesep)
         self.text_field.setText('')
 
     def handler_rm(self, event):
@@ -304,5 +310,5 @@ class ButtonHandlers:
         self.text_field.setText('')
         self.text_area.setText('')
         for name in self.default_values:
-            self.text_area.append(name + '\r\n' + os.linesep)
+            self.text_area.append(name + '\n' + os.linesep)
 

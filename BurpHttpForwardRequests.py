@@ -13,7 +13,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 NAME = u'http请求转发插件'
-VERSION = '1.0.3'
+VERSION = '1.0.4'
 
 MODULE = {4: 'proxy', 64: 'repeater'}
 
