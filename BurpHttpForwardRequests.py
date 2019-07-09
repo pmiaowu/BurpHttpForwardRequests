@@ -13,7 +13,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 NAME = u'http请求转发插件'
-VERSION = '1.0.4'
+VERSION = '1.0.5'
 
 MODULE = {4: 'proxy', 64: 'repeater'}
 
@@ -73,7 +73,7 @@ class BurpExtender(IBurpExtender, IHttpListener):
                 if white_url == host:
                     is_white_url = True
                     break
-                elif white_url[0] == '*' and white_url[1] == '.':
+                elif len(white_url) > 2 and white_url[0] == '*' and white_url[1] == '.':
                     white_url = white_url.replace('*.', '')
                     if host.find(white_url) >= 0:
                         is_white_url = True

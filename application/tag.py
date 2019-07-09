@@ -259,6 +259,8 @@ class tag(ITab):
         l = []
         text_list = text_area.getText().strip().split('\n')
         for data in text_list:
+            if data == '':
+                continue
             data = data.replace("\n", '')
             data = data.replace("\r", '')
             data = data.strip(' ')
