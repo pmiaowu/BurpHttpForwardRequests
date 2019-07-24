@@ -13,7 +13,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 NAME = u'http请求转发插件'
-VERSION = '1.0.6'
+VERSION = '1.0.7'
 
 MODULE = {4: 'proxy', 64: 'repeater'}
 
@@ -97,6 +97,12 @@ class BurpExtender(IBurpExtender, IHttpListener):
 
         # 黑名单资源不转发-避免一些无用的url也进行扫描
         if res_stated_mime_type in ['CSS', 'JPEG', 'GIF', 'PNG', 'image', 'video', 'script']:
+            return
+
+        # 黑名单后缀不转发
+        no_parameter_url = req_url.split('?')[0]
+        url_extension = no_parameter_url.split('.')[-1]
+        if url_extension in ['js', 'css', 'ico', 'jpeg', 'gif', 'png']:
             return
 
         # 判断是否开启url重复验证
