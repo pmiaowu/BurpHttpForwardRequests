@@ -107,7 +107,7 @@ class BurpExtender(IBurpExtender, IHttpListener):
         # 黑名单后缀不转发
         no_parameter_url = req_url.split('?')[0]
         url_extension = no_parameter_url.split('.')[-1]
-        if url_extension in ['js', 'css', 'ico', 'jpeg', 'gif', 'png']:
+        if url_extension in ['js', 'css', 'ico', 'jpg', 'jpeg', 'gif', 'png']:
             return
 
         # 判断是否开启url重复验证
