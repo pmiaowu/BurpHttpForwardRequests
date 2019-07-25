@@ -105,9 +105,16 @@ class BurpExtender(IBurpExtender, IHttpListener):
             return
 
         # 黑名单后缀不转发
+        permitted_file_extensions = ['js', 'css', 'ico', 'jpg', 'jpeg',
+                                     'gif', 'png', 'woff', 'woff2', 'eot',
+                                     'svg', 'mp3', 'wmv', 'asf', 'asx',
+                                     'rm', 'rmvb', 'mp4', '3gp', 'mov',
+                                     'm4v', 'avi', 'dat', 'mkv', 'flv',
+                                     'vob']
+
         no_parameter_url = req_url.split('?')[0]
         url_extension = no_parameter_url.split('.')[-1]
-        if url_extension in ['js', 'css', 'ico', 'jpg', 'jpeg', 'gif', 'png']:
+        if url_extension in permitted_file_extensions:
             return
 
         # 判断是否开启url重复验证
