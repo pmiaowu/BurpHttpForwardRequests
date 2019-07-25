@@ -79,6 +79,7 @@ Jython环境安装包: http://search.maven.org/remotecontent?filepath=org/python
 ![](./readme/images/5.png)
 ![](./readme/images/10.png)
 ![](./readme/images/11.png)
+![](./readme/images/12.png)
 
 # Url调试功能添加
 

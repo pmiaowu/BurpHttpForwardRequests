@@ -13,7 +13,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 NAME = u'http请求转发插件'
-VERSION = '1.0.7'
+VERSION = '1.1.0'
 
 MODULE = {4: 'proxy', 64: 'repeater'}
 
@@ -85,6 +85,11 @@ class BurpExtender(IBurpExtender, IHttpListener):
         request = messageInfo.getRequest()
         analyzedRequest, req_headers, req_method, req_parameters = self.getRequestInfo(request)
 
+        # 请求方法过滤
+        # 只允许白名单的http请求通过
+        if req_method not in self.tags.getWhiteListHttpMethod():
+            return
+
         # Url调试功能
         for parameters in req_parameters:
             if parameters.getName() == 'is_burp_debug' and parameters.getValue() == 'True':
@@ -113,10 +118,11 @@ class BurpExtender(IBurpExtender, IHttpListener):
 
         # 把请求发给扫描模块
         self._callbacks.doActiveScan(host, port, is_https, request) 
-        
+
         print('')
         print('===================================')
         print(u'来至模块: %s' % (MODULE[toolFlag]))
+        print(u'请求方法: %s' % (req_method))
         print(u'请求转发成功 url: %s' % (req_url))
         print('===================================')
         print('')

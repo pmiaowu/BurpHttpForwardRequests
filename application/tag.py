@@ -58,30 +58,49 @@ class tag(ITab):
         self.settings = JPanel(GridBagLayout())
         self.forward_requests_settings = JPanel(GridBagLayout())
         self.white_list_domain_settings = JPanel(GridBagLayout())
+        self.white_list_http_method_settings = JPanel(GridBagLayout())
 
         c = GridBagConstraints()
 
         # 界面选项卡1-标签加载
-        self.tag_1(c)
-        self.tag_2(c)
+        self.tag_1_1(c)
+        self.tag_1_2(c)
 
         # 界面选项卡2-标签加载
-        self.tag_3(c)
-        self.tag_4(c)
+        self.tag_2_1(c)
+        self.tag_2_2(c)
 
         # 界面选项卡3-标签加载
-        self.tag_5(c)
+        self.tag_3_1(c)
+
+        # 界面选项卡4-标签加载
+        self.tag_4_1(c)
+        self.tag_4_2(c)
+        self.tag_4_3(c)
+        self.tag_4_4(c)
+        self.tag_4_5(c)
+        self.tag_4_6(c)
+        self.tag_4_7(c)
+        self.tag_4_8(c)
+        self.tag_4_9(c)
+        self.tag_4_10(c)
+        self.tag_4_11(c)
+        self.tag_4_12(c)
+        self.tag_4_13(c)
+        self.tag_4_14(c)
+        self.tag_4_15(c)
 
         # 添加选项卡
         self.tabs.addTab(u'基本设置', self.settings)
         self.tabs.addTab(u'http请求转发设置', self.forward_requests_settings)
         self.tabs.addTab(u'白名单域名设置', self.white_list_domain_settings)
+        self.tabs.addTab(u'白名单http方法设置', self.white_list_http_method_settings)
 
         self._callbacks.customizeUiComponent(self.tabs)
         self._callbacks.addSuiteTab(self)
 
     # 选项卡1-标签1-ui
-    def tag_1(self, c):
+    def tag_1_1(self, c):
         # 创建 检查框
         self.is_start_box = JCheckBox(u'是否启动插件', ForwardRequestsConfig.IS_START)
         self.setFontBold(self.is_start_box)
@@ -104,7 +123,7 @@ class tag(ITab):
         return self.is_start_box.isSelected()
 
     # 选项卡1-标签2-ui
-    def tag_2(self, c):
+    def tag_1_2(self, c):
         # 创建 检查框
         self.url_repeated_box = JCheckBox(u'是否启动url重复验证', ForwardRequestsConfig.URL_REPEATED_VERIFY)
         self.setFontBold(self.url_repeated_box)
@@ -127,7 +146,7 @@ class tag(ITab):
         return self.url_repeated_box.isSelected()
 
     # 选项卡2-标签1-ui
-    def tag_3(self, c):
+    def tag_2_1(self, c):
         # 创建 检查框
         self.is_proxy_forward_requests_box = JCheckBox(u'是否启动Proxy模块请求转发(推荐打勾)', ForwardRequestsConfig.IS_START_PROXY_FORWARD_REQUESTS)
         self.setFontBold(self.is_proxy_forward_requests_box)
@@ -146,7 +165,7 @@ class tag(ITab):
         self.forward_requests_settings.add(is_proxy_forward_requests_box_lbl, c)
 
     # 选项卡2-标签2-ui
-    def tag_4(self, c):
+    def tag_2_2(self, c):
         # 创建 检查框
         self.is_repeater_forward_requests_box = JCheckBox(u'是否启动Repeater模块请求转发', ForwardRequestsConfig.IS_START_REPEATER_FORWARD_REQUESTS)
         self.setFontBold(self.is_repeater_forward_requests_box)
@@ -176,7 +195,7 @@ class tag(ITab):
         return white_list_module
 
     # 选项卡3-标签1-ui
-    def tag_5(self, c):
+    def tag_3_1(self, c):
         # 输入框-标题
         lblParams = JLabel(u'请填写域名:')
         self.setFontBold(lblParams)
@@ -265,6 +284,206 @@ class tag(ITab):
             data = data.replace("\r", '')
             data = data.strip(' ')
             l.append(data)
+        return l
+
+    # 选项卡4-标签1-ui
+    def tag_4_1(self, c):
+        # 创建 检查框
+        self.is_get_forward_requests_box = JCheckBox(u'转发GET请求', ForwardRequestsConfig.IS_GET_FORWARD_REQUESTS)
+        self.setFontBold(self.is_get_forward_requests_box)
+        self.is_get_forward_requests_box.setForeground(Color(0, 0, 153))
+        c.insets = Insets(5, 5, 5, 5)
+        c.gridx = 0
+        c.gridy = 1
+        self.white_list_http_method_settings.add(self.is_get_forward_requests_box, c)
+
+    # 选项卡4-标签2-ui
+    def tag_4_2(self, c):
+        # 创建 检查框
+        self.is_post_forward_requests_box = JCheckBox(u'转发POST请求', ForwardRequestsConfig.IS_POST_FORWARD_REQUESTS)
+        self.setFontBold(self.is_post_forward_requests_box)
+        self.is_post_forward_requests_box.setForeground(Color(0, 0, 153))
+        c.insets = Insets(5, 5, 5, 5)
+        c.gridx = 0
+        c.gridy = 2
+        self.white_list_http_method_settings.add(self.is_post_forward_requests_box, c)
+
+    # 选项卡4-标签3-ui
+    def tag_4_3(self, c):
+        # 创建 检查框
+        self.is_put_forward_requests_box = JCheckBox(u'转发PUT请求', ForwardRequestsConfig.IS_PUT_FORWARD_REQUESTS)
+        self.setFontBold(self.is_put_forward_requests_box)
+        self.is_put_forward_requests_box.setForeground(Color(0, 0, 153))
+        c.insets = Insets(5, 5, 5, 5)
+        c.gridx = 0
+        c.gridy = 3
+        self.white_list_http_method_settings.add(self.is_put_forward_requests_box, c)
+
+    # 选项卡4-标签4-ui
+    def tag_4_4(self, c):
+        # 创建 检查框
+        self.is_patch_forward_requests_box = JCheckBox(u'转发PATCH请求', ForwardRequestsConfig.IS_PATCH_FORWARD_REQUESTS)
+        self.setFontBold(self.is_patch_forward_requests_box)
+        self.is_patch_forward_requests_box.setForeground(Color(0, 0, 153))
+        c.insets = Insets(5, 5, 5, 5)
+        c.gridx = 0
+        c.gridy = 4
+        self.white_list_http_method_settings.add(self.is_patch_forward_requests_box, c)
+
+    # 选项卡4-标签5-ui
+    def tag_4_5(self, c):
+        # 创建 检查框
+        self.is_delete_forward_requests_box = JCheckBox(u'转发DELETE请求', ForwardRequestsConfig.IS_DELETE_FORWARD_REQUESTS)
+        self.setFontBold(self.is_delete_forward_requests_box)
+        self.is_delete_forward_requests_box.setForeground(Color(0, 0, 153))
+        c.insets = Insets(5, 5, 5, 5)
+        c.gridx = 0
+        c.gridy = 5
+        self.white_list_http_method_settings.add(self.is_delete_forward_requests_box, c)
+
+    # 选项卡4-标签6-ui
+    def tag_4_6(self, c):
+        # 创建 检查框
+        self.is_copy_forward_requests_box = JCheckBox(u'转发COPY请求', ForwardRequestsConfig.IS_COPY_FORWARD_REQUESTS)
+        self.setFontBold(self.is_copy_forward_requests_box)
+        self.is_copy_forward_requests_box.setForeground(Color(0, 0, 153))
+        c.insets = Insets(5, 5, 5, 5)
+        c.gridx = 0
+        c.gridy = 6
+        self.white_list_http_method_settings.add(self.is_copy_forward_requests_box, c)
+
+    # 选项卡4-标签7-ui
+    def tag_4_7(self, c):
+        # 创建 检查框
+        self.is_head_forward_requests_box = JCheckBox(u'转发HEAD请求', ForwardRequestsConfig.IS_HEAD_FORWARD_REQUESTS)
+        self.setFontBold(self.is_head_forward_requests_box)
+        self.is_head_forward_requests_box.setForeground(Color(0, 0, 153))
+        c.insets = Insets(5, 5, 5, 5)
+        c.gridx = 0
+        c.gridy = 7
+        self.white_list_http_method_settings.add(self.is_head_forward_requests_box, c)
+
+    # 选项卡4-标签8-ui
+    def tag_4_8(self, c):
+        # 创建 检查框
+        self.is_options_forward_requests_box = JCheckBox(u'转发OPTIONS请求', ForwardRequestsConfig.IS_OPTIONS_FORWARD_REQUESTS)
+        self.setFontBold(self.is_options_forward_requests_box)
+        self.is_options_forward_requests_box.setForeground(Color(0, 0, 153))
+        c.insets = Insets(5, 5, 5, 5)
+        c.gridx = 0
+        c.gridy = 8
+        self.white_list_http_method_settings.add(self.is_options_forward_requests_box, c)
+
+    # 选项卡4-标签9-ui
+    def tag_4_9(self, c):
+        # 创建 检查框
+        self.is_link_forward_requests_box = JCheckBox(u'转发LINK请求', ForwardRequestsConfig.IS_LINK_FORWARD_REQUESTS)
+        self.setFontBold(self.is_link_forward_requests_box)
+        self.is_link_forward_requests_box.setForeground(Color(0, 0, 153))
+        c.insets = Insets(5, 5, 5, 5)
+        c.gridx = 0
+        c.gridy = 9
+        self.white_list_http_method_settings.add(self.is_link_forward_requests_box, c)
+
+    # 选项卡4-标签10-ui
+    def tag_4_10(self, c):
+        # 创建 检查框
+        self.is_unlink_forward_requests_box = JCheckBox(u'转发UNLINK请求', ForwardRequestsConfig.IS_UNLINK_FORWARD_REQUESTS)
+        self.setFontBold(self.is_unlink_forward_requests_box)
+        self.is_unlink_forward_requests_box.setForeground(Color(0, 0, 153))
+        c.insets = Insets(5, 5, 5, 5)
+        c.gridx = 0
+        c.gridy = 10
+        self.white_list_http_method_settings.add(self.is_unlink_forward_requests_box, c)
+
+    # 选项卡4-标签11-ui
+    def tag_4_11(self, c):
+        # 创建 检查框
+        self.is_purge_forward_requests_box = JCheckBox(u'转发PURGE请求', ForwardRequestsConfig.IS_PURGE_FORWARD_REQUESTS)
+        self.setFontBold(self.is_purge_forward_requests_box)
+        self.is_purge_forward_requests_box.setForeground(Color(0, 0, 153))
+        c.insets = Insets(5, 5, 5, 5)
+        c.gridx = 0
+        c.gridy = 11
+        self.white_list_http_method_settings.add(self.is_purge_forward_requests_box, c)
+
+    # 选项卡4-标签12-ui
+    def tag_4_12(self, c):
+        # 创建 检查框
+        self.is_lock_forward_requests_box = JCheckBox(u'转发LOCK请求', ForwardRequestsConfig.IS_LOCK_FORWARD_REQUESTS)
+        self.setFontBold(self.is_lock_forward_requests_box)
+        self.is_lock_forward_requests_box.setForeground(Color(0, 0, 153))
+        c.insets = Insets(5, 5, 5, 5)
+        c.gridx = 0
+        c.gridy = 12
+        self.white_list_http_method_settings.add(self.is_lock_forward_requests_box, c)
+
+    # 选项卡4-标签13-ui
+    def tag_4_13(self, c):
+        # 创建 检查框
+        self.is_unlock_forward_requests_box = JCheckBox(u'转发UNLOCK请求', ForwardRequestsConfig.IS_UNLOCK_FORWARD_REQUESTS)
+        self.setFontBold(self.is_unlock_forward_requests_box)
+        self.is_unlock_forward_requests_box.setForeground(Color(0, 0, 153))
+        c.insets = Insets(5, 5, 5, 5)
+        c.gridx = 0
+        c.gridy = 13
+        self.white_list_http_method_settings.add(self.is_unlock_forward_requests_box, c)
+
+    # 选项卡4-标签14-ui
+    def tag_4_14(self, c):
+        # 创建 检查框
+        self.is_propfind_forward_requests_box = JCheckBox(u'转发PROPFIND请求', ForwardRequestsConfig.IS_PROPFIND_FORWARD_REQUESTS)
+        self.setFontBold(self.is_propfind_forward_requests_box)
+        self.is_propfind_forward_requests_box.setForeground(Color(0, 0, 153))
+        c.insets = Insets(5, 5, 5, 5)
+        c.gridx = 0
+        c.gridy = 14
+        self.white_list_http_method_settings.add(self.is_propfind_forward_requests_box, c)
+
+    # 选项卡4-标签15-ui
+    def tag_4_15(self, c):
+        # 创建 检查框
+        self.is_view_forward_requests_box = JCheckBox(u'转发VIEW请求', ForwardRequestsConfig.IS_VIEW_FORWARD_REQUESTS)
+        self.setFontBold(self.is_view_forward_requests_box)
+        self.is_view_forward_requests_box.setForeground(Color(0, 0, 153))
+        c.insets = Insets(5, 5, 5, 5)
+        c.gridx = 0
+        c.gridy = 15
+        self.white_list_http_method_settings.add(self.is_view_forward_requests_box, c)
+
+    # 获取白名单http方法
+    def getWhiteListHttpMethod(self):
+        l = []
+        if self.is_get_forward_requests_box.isSelected():
+            l.append('GET')
+        if self.is_post_forward_requests_box.isSelected():
+            l.append('POST')
+        if self.is_put_forward_requests_box.isSelected():
+            l.append('PUT')
+        if self.is_patch_forward_requests_box.isSelected():
+            l.append('PATCH')
+        if self.is_delete_forward_requests_box.isSelected():
+            l.append('DELETE')
+        if self.is_copy_forward_requests_box.isSelected():
+            l.append('COPY')
+        if self.is_head_forward_requests_box.isSelected():
+            l.append('HEAD')
+        if self.is_options_forward_requests_box.isSelected():
+            l.append('OPTIONS')
+        if self.is_link_forward_requests_box.isSelected():
+            l.append('LINK')
+        if self.is_unlink_forward_requests_box.isSelected():
+            l.append('UNLINK')
+        if self.is_purge_forward_requests_box.isSelected():
+            l.append('PURGE')
+        if self.is_lock_forward_requests_box.isSelected():
+            l.append('LOCK')
+        if self.is_unlock_forward_requests_box.isSelected():
+            l.append('UNLOCK')
+        if self.is_propfind_forward_requests_box.isSelected():
+            l.append('PROPFIND')
+        if self.is_view_forward_requests_box.isSelected():
+            l.append('VIEW')
         return l
 
 class TextAreaMouseListener(MouseAdapter):
