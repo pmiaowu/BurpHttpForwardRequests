@@ -22,6 +22,7 @@ Jython环境安装包: http://search.maven.org/remotecontent?filepath=org/python
 ![](./readme/images/2.png)
 ![](./readme/images/3.png)
 ![](./readme/images/6.png)
+![](./readme/images/13.png)
 
 # 使用例子
 
