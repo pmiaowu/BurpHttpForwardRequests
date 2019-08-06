@@ -110,7 +110,7 @@ class BurpExtender(IBurpExtender, IHttpListener):
                                      'svg', 'mp3', 'wmv', 'asf', 'asx',
                                      'rm', 'rmvb', 'mp4', '3gp', 'mov',
                                      'm4v', 'avi', 'dat', 'mkv', 'flv',
-                                     'vob']
+                                     'vob','ttf']
 
         no_parameter_url = req_url.split('?')[0]
         url_extension = no_parameter_url.split('.')[-1]
