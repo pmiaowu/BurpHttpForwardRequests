@@ -1,9 +1,0 @@
-*.baidu.com
-*.google.cn
-*.sogou.com
-*.so.com
-*.hao123.com
-*.butian.net
-*.bing.com
-*.github.com
-*.browser.360.cn
