@@ -123,7 +123,7 @@ class BurpExtender(IBurpExtender, IHttpListener):
             if helpers.isRepeatedUrl(host, req_url):
                 return
 
-        # 把请求发给扫描模块
+        # 把请求发给主动扫描模块
         self._callbacks.doActiveScan(host, port, is_https, request) 
 
         print('')

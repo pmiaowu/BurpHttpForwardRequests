@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import datetime
+import urlparse
 
+import config.forwardRequests as ForwardRequestsConfig
 import os
 
 # 判断是否重复url
@@ -21,6 +23,7 @@ def isRepeatedUrl(host, data):
     except:
         f.close()
     finally:
+        data = urlBlacklistDel(data)
         if f.read().find(data) >= 0:
             is_repeated = True
         else:
@@ -61,7 +64,23 @@ def blackUrlList():
 
     return black_url_list
 
+# url黑名单参数删除
+def urlBlacklistDel(url):
+    parsed = urlparse.urlsplit(url)
+
+    i = 0
+    url_parsed_parameter = ''
+    if parsed.query != '':
+        for parsed_parameter_list in parsed.query.split('&'):
+            parameter_list = parsed_parameter_list.split('=', 1)
+            if parameter_list[0] not in ForwardRequestsConfig.BLACKLIST_PARAMETER_LIST:
+                i = i+1
+                if i == 1:
+                    url_parsed_parameter = '?' + url_parsed_parameter + parameter_list[0] + '=' + parameter_list[1]
+                else:
+                    url_parsed_parameter = url_parsed_parameter + '&' + parameter_list[0] + '=' + parameter_list[1]
     
+    return parsed.scheme + '://' + parsed.netloc + parsed.path + url_parsed_parameter
     
 
     
