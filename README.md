@@ -21,12 +21,15 @@ Jython环境安装包: http://search.maven.org/remotecontent?filepath=org/python
 ![](./readme/images/1.png)
 ![](./readme/images/2.png)
 ![](./readme/images/3.png)
+![](./readme/images/14.png)
 ![](./readme/images/6.png)
 ![](./readme/images/13.png)
 
 # 使用例子
 
 安装完毕以后,任意打开一个url链接就可以了
+
+![](./readme/images/15.png)
 
 例如打开任意一个网站
 ![](./readme/images/7.png)
@@ -99,6 +102,79 @@ Jython环境安装包: http://search.maven.org/remotecontent?filepath=org/python
 
 那么此请求就不会转发了 :)
 
+# 插件基本使用方法
+
+## url重复验证功能说明
+
+如果你发现一个“Burp Proxy模块请求”第一次可以成功转发到“Burp Scanner模块”,后面都不转发了,请注意这不是Bug!!!,这不是Bug!!!,这不是Bug!!!
+
+转发插件默认启动Url重复检测的判断
+
+你可以查看插件根目录下的“test_logs”文件夹,里面会以你的扫描域名生成一个“xxxx.com-xx年-xx月-xx日.log"
+
+这个log会记录“Burp Proxy模块请求”转发到“Burp Scanner模块”的Url
+
+如果你想要重新转发相同的请求的话, 有三个方法
 
 
+
+```
+方法一-临时有效的
+
+进入“test_logs”文件夹 删除里面的内容
+```
+![](./readme/images/16.png)
+
+
+
+```
+方法二-临时有效的
+
+进入 http请求转发插件-基本设置 这个tag
+
+里面有个 “是否启动url重复验证” 把那个勾取消即可
+```
+![](./readme/images/17.png)
+
+
+
+```
+方法三-永久有效的
+
+打开 “config\forwardRequests.py” 这个文件
+
+找到一个配置 “URL_REPEATED_VERIFY” 修改为 False 即可
+```
+![](./readme/images/18.png)
+
+## 白名单域名功能-设置方法
+
+注意: 域名不需要填写 http:// 或是 https://
+
+### 转发全部链接-设置方法
+
+![](./readme/images/15.png)
+
+这样每个请求就都会进行转发了
+
+### 转发某个域名请求-设置方法
+
+如果想要每个域名的请求进行转发, 那也是可以的
+
+例子一: 转发 www.baidu.com 的请求设置方法如下
+![](./readme/images/19.png)
+
+
+
+例子二: 转发 所有baidu.com 的请求设置方法如下
+![](./readme/images/20.png)
+
+
+例子三: 转发 ip 的请求设置方法如下
+![](./readme/images/21.png)
+
+### 转发某个链接-设置方法
+
+假设我们现在在 Burp Repeater模块 有一个请求想要进行转发, 那么可以这样转发
+![](./readme/images/22.png)
 
