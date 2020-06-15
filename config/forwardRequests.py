@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # 是否启动插件
-IS_START = True
+IS_START = False
 
 # 是否启动url重复验证
 # True 开启验证, False 关闭验证
@@ -32,4 +32,4 @@ IS_PROPFIND_FORWARD_REQUESTS = True
 IS_VIEW_FORWARD_REQUESTS = True
 
 # 黑名单参数列表
-BLACKLIST_PARAMETER_LIST = ['callback', '_', 't', 'ts', 'referer']
+BLACKLIST_PARAMETER_LIST = ['callback', '_', 't', 'ts', 'referer', 'v']
