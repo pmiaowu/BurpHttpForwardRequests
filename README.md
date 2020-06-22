@@ -21,7 +21,7 @@ Jython环境安装包: http://search.maven.org/remotecontent?filepath=org/python
 ![](./readme/images/23.png)
 为了防止中文乱码，burp的显示语言，最好设置成图片显示的这样
 
-![](./readme/images/1.png)
+![](./readme/images/1.jpg)
 ![](./readme/images/2.png)
 ![](./readme/images/3.png)
 ![](./readme/images/14.png)
