@@ -32,4 +32,4 @@ IS_PROPFIND_FORWARD_REQUESTS = True
 IS_VIEW_FORWARD_REQUESTS = True
 
 # 黑名单参数列表
-BLACKLIST_PARAMETER_LIST = ['callback', '_', 't', 'ts', 'referer', 'v']
+BLACKLIST_PARAMETER_LIST = ['callback', '_', 't', '_t', 'ts', 'referer', 'v']
