@@ -32,7 +32,36 @@ http请求转发酱一个可怜兮兮还不知道自己唯一使命的Burpsuite 
 
 不然到时候该插件把请求转发给了burp的扫描模块，burp那些自带的插件一扫描就是几百个请求
 
-# 安装过程
+# 安装方法一 (推荐)
+
+注意：执行一遍这个以后，下一次就打开使用burp即可
+
+注意：执行一遍这个以后，下一次就打开使用burp即可
+
+注意：执行一遍这个以后，下一次就打开使用burp即可
+
+打开 Burp 
+![](./readme/images/24.png)
+
+找到 /BurpHttpForwardRequests/burp-scan.conf.json 引入它，如下图
+![](./readme/images/25.png)
+
+接着就进入到了burp
+
+Jython官网: https://www.jython.org/downloads.html
+
+Jython环境安装包: http://search.maven.org/remotecontent?filepath=org/python/jython-standalone/2.7.0/jython-standalone-2.7.0.jar
+
+![](./readme/images/23.jpg)
+为了防止中文乱码，burp的显示语言，最好设置成图片显示的这样
+
+![](./readme/images/1.png)
+![](./readme/images/2.png)
+![](./readme/images/3.png)
+
+这样就安装完毕了 :)
+
+# 安装方法二
 
 Jython官网: https://www.jython.org/downloads.html
 
