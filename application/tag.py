@@ -30,8 +30,10 @@ import config.forwardRequests as ForwardRequestsConfig
 reload(sys)
 sys.setdefaultencoding('utf8')
 
-white_list_names = [
-]
+white_list_names = []
+
+def linesep():
+    return '\r' + '\n' + '\r\n'
 
 class tag(ITab):
     def __init__(self, callbacks, name):
@@ -232,7 +234,7 @@ class tag(ITab):
 
         # 向文本框添加数据
         for name in white_list_names:
-            self.white_list_text_area.append(name + '\n' + os.linesep)
+            self.white_list_text_area.append(name + linesep())
         c.gridx = 1
         c.gridy = 1
         sp = JScrollPane(self.white_list_text_area)
@@ -272,7 +274,7 @@ class tag(ITab):
     # 获取白名单域名列表
     def getWhiteList(self):
         return self.text_area_to_list(self.white_list_text_area)
-    
+
     # 获取指定text数据
     def text_area_to_list(self, text_area):
         l = []
@@ -282,6 +284,7 @@ class tag(ITab):
                 continue
             data = data.replace("\n", '')
             data = data.replace("\r", '')
+            data = data.replace(" ", '')
             data = data.strip(' ')
             l.append(data)
         return l
@@ -516,7 +519,7 @@ class ButtonHandlers:
 
     def handler_add(self, event):
         name = self.text_field.getText()
-        self.text_area.append(name + '\n' + os.linesep)
+        self.text_area.append(name + linesep())
         self.text_field.setText('')
 
     def handler_rm(self, event):
@@ -524,12 +527,12 @@ class ButtonHandlers:
         start, value = self.mouse_listener.getSelected()
         end = start + len(value)
         text_area = self.text_area.getText()
-        text_area = (text_area[:start] + text_area[end:]).strip('\n').replace('\n\n', '\n')
+        text_area = (text_area[:start].rstrip('\r').rstrip('\n') + text_area[end:])
         self.text_area.setText(text_area)
 
     def handler_restore(self, event):
         self.text_field.setText('')
         self.text_area.setText('')
         for name in self.default_values:
-            self.text_area.append(name + '\n' + os.linesep)
+            self.text_area.append(name + linesep())
 
