@@ -519,8 +519,10 @@ class ButtonHandlers:
 
     def handler_add(self, event):
         name = self.text_field.getText()
-        self.text_area.append(name + linesep())
         self.text_field.setText('')
+        if name == '':
+            return
+        self.text_area.append(name + linesep())
 
     def handler_rm(self, event):
         self.text_field.setText('')
@@ -535,4 +537,3 @@ class ButtonHandlers:
         self.text_area.setText('')
         for name in self.default_values:
             self.text_area.append(name + linesep())
-
