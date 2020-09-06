@@ -5,6 +5,7 @@ from burp import IBurpExtender
 from burp import IHttpListener
 
 from application.tag import tag
+from application.hackhttp import hackhttp
 
 import bootstrap.helpers as helpers
 import sys
@@ -13,7 +14,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 NAME = u'http请求转发插件'
-VERSION = '1.2.2'
+VERSION = '1.3.0'
 
 MODULE = {4: 'proxy', 64: 'repeater'}
 
@@ -35,7 +36,8 @@ class BurpExtender(IBurpExtender, IHttpListener):
 
         print(u'%s-加载成功' % (NAME))
         print(u'版本: %s' % (VERSION))
-        print(u'作者: P喵呜-phpoop')
+        print(u'咸鱼作者: P喵呜-phpoop')
+        print(u'二改作者: 钧钧')
         print(u'QQ: 3303003493')
         print(u'GitHub: https://github.com/pmiaowu')
         print(u'Blog: https://www.yuque.com/pmiaowu')
@@ -50,8 +52,8 @@ class BurpExtender(IBurpExtender, IHttpListener):
         if self.tags.isStartBox() == False:
             return
 
-        # 只处理白名单模块的请求
-        if toolFlag not in self.tags.getWhiteListModule():
+        # 是否转发请求的判断
+        if toolFlag not in self.tags.getWhiteListModule() and self.tags.xrayIsSelect() == False:
             return
 
         # 获取请求包返回的服务信息
@@ -123,16 +125,31 @@ class BurpExtender(IBurpExtender, IHttpListener):
             if helpers.isRepeatedUrl(host, req_url):
                 return
 
-        # 把请求发给主动扫描模块
-        self._callbacks.doActiveScan(host, port, is_https, request) 
+        # 将请求转发给xray
+        if self.tags.xrayIsSelect() == True:
+            # 这里有个线程池，或许可以把timeout调小一点，毕竟这里只是转发
+            xray_address = self.tags.xrayAddress().split(":")
+            proxy_str = (xray_address[0], int(xray_address[1]))
+            hh = hackhttp()
+            hh.http(url=req_url,raw=request,proxy=proxy_str)
 
-        print('')
-        print('===================================')
-        print(u'来至模块: %s' % (MODULE[toolFlag]))
-        print(u'请求方法: %s' % (req_method))
-        print(u'请求转发成功 url: %s' % (req_url))
-        print('===================================')
-        print('')
+            print('')
+            print('===================================')
+            print(u'请求转发xray成功 url: %s' % (req_url))
+            print('===================================')
+            print('')
+
+        # 把请求发给主动扫描模块
+        if toolFlag in self.tags.getWhiteListModule():
+            self._callbacks.doActiveScan(host, port, is_https, request)
+
+            print('')
+            print('===================================')
+            print(u'来至模块: %s' % (MODULE[toolFlag]))
+            print(u'请求方法: %s' % (req_method))
+            print(u'请求转发成功 url: %s' % (req_url))
+            print('===================================')
+            print('')
 
     # 获取请求包返回的服务信息
     def getServerInfo(self, httpService):

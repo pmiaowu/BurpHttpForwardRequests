@@ -48,9 +48,11 @@ http请求转发酱一个可怜兮兮还不知道自己唯一使命的Burpsuite 
 
 接着就进入到了burp
 
-Jython官网: https://www.jython.org/downloads.html
+Jython官网: https://www.jython.org/download
 
-Jython环境安装包: http://search.maven.org/remotecontent?filepath=org/python/jython-standalone/2.7.0/jython-standalone-2.7.0.jar
+注意一定要 2.7.1 这个版本
+
+Jython环境安装包: https://repo1.maven.org/maven2/org/python/jython-standalone/2.7.1/jython-standalone-2.7.1.jar
 
 ![](./readme/images/23.jpg)
 为了防止中文乱码，burp的显示语言，最好设置成图片显示的这样
@@ -63,9 +65,11 @@ Jython环境安装包: http://search.maven.org/remotecontent?filepath=org/python
 
 # 安装方法二
 
-Jython官网: https://www.jython.org/downloads.html
+Jython官网: https://www.jython.org/download
 
-Jython环境安装包: http://search.maven.org/remotecontent?filepath=org/python/jython-standalone/2.7.0/jython-standalone-2.7.0.jar
+注意一定要 2.7.1 这个版本
+
+Jython环境安装包: https://repo1.maven.org/maven2/org/python/jython-standalone/2.7.1/jython-standalone-2.7.1.jar
 
 ![](./readme/images/23.jpg)
 为了防止中文乱码，burp的显示语言，最好设置成图片显示的这样
@@ -230,3 +234,19 @@ Jython环境安装包: http://search.maven.org/remotecontent?filepath=org/python
 假设我们现在在 Burp Repeater模块 有一个请求想要进行转发, 那么可以这样转发
 ![](./readme/images/22.png)
 
+# 请求转发到xray
+由钧钧新增的功能
+
+默认不启动，如果想要修改为默认启动请以下文件
+
+配置路径：config/forwardRequests.py
+
+```
+里面有个配置 URL_FORWARD_XRAY = False 将他修改为 URL_FORWARD_XRAY = True
+即可修改为 默认启动
+```
+
+使用方法如下图
+![](./readme/images/26.png)
+
+接着请求就会正常转发到xray了

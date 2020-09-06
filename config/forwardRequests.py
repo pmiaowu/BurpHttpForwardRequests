@@ -8,6 +8,9 @@ IS_START = False
 # True 开启验证, False 关闭验证
 URL_REPEATED_VERIFY = True
 
+# 是否转发干净的http包到xray
+URL_FORWARD_XRAY = False
+
 # 是否启动Proxy模块请求转发
 IS_START_PROXY_FORWARD_REQUESTS = True
 

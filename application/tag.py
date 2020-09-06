@@ -71,6 +71,7 @@ class tag(ITab):
         # 界面选项卡2-标签加载
         self.tag_2_1(c)
         self.tag_2_2(c)
+        self.tag_2_3(c)
 
         # 界面选项卡3-标签加载
         self.tag_3_1(c)
@@ -184,7 +185,28 @@ class tag(ITab):
         c.gridx = 0
         c.gridy = 4
         self.forward_requests_settings.add(is_repeater_forward_requests_box_lbl, c)
-    
+
+    def tag_2_3(self,c):
+        self.url_forward_xray = JCheckBox(u'是否将请求转发到xray',ForwardRequestsConfig.URL_FORWARD_XRAY)
+        self.setFontBold(self.url_forward_xray)
+        self.url_forward_xray.setForeground(Color(0, 0, 153))
+        c.insets = Insets(5, 5, 5, 5)
+        c.gridx = 0
+        c.gridy = 5
+        self.forward_requests_settings.add(self.url_forward_xray, c)
+
+        self.xray_listen_text_field = JTextField(u"127.0.0.1:7777")
+        c.fill = GridBagConstraints.BOTH
+        c.gridx = 0
+        c.gridy = 6
+        self.forward_requests_settings.add(self.xray_listen_text_field, c)
+
+    def xrayAddress(self):
+        return self.xray_listen_text_field.getText()
+
+    def xrayIsSelect(self):
+        return self.url_forward_xray.isSelected()
+
     # 获取允许转发的burp模块列表
     def getWhiteListModule(self):
         white_list_module = []
