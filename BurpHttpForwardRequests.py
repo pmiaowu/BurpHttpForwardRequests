@@ -14,7 +14,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 NAME = u'http请求转发插件'
-VERSION = '1.3.0'
+VERSION = '1.3.1'
 
 MODULE = {4: 'proxy', 64: 'repeater'}
 
@@ -97,7 +97,8 @@ class BurpExtender(IBurpExtender, IHttpListener):
             if parameters.getName() == 'is_burp_debug' and parameters.getValue() == 'True':
                 return
 
-        req_url = self.getRequestUrl(protocol, port, req_headers)
+        # 获取请求url
+        req_url = str(self._helpers.analyzeRequest(messageInfo).getUrl())
 
         # 获取响应包的信息
         res_headers, res_status_code, res_stated_mime_type, res_bodys = self.getResponseInfo(messageInfo.getResponse())
@@ -191,9 +192,3 @@ class BurpExtender(IBurpExtender, IHttpListener):
         res_bodys = response[analyzedResponse.getBodyOffset():].tostring() 
 
         return res_headers, res_status_code, res_stated_mime_type, res_bodys
-
-    # 获取请求url
-    def getRequestUrl(self, protocol, port, req_headers):
-        link = req_headers[0].split(' ')[1]
-        host = req_headers[1].split(' ')[1]
-        return protocol + '://' + host + ':' + str(port) + link
