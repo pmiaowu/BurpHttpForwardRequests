@@ -14,7 +14,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 NAME = u'http请求转发插件'
-VERSION = '1.3.1'
+VERSION = '1.3.2'
 
 MODULE = {4: 'proxy', 64: 'repeater'}
 
@@ -126,6 +126,18 @@ class BurpExtender(IBurpExtender, IHttpListener):
             if helpers.isRepeatedUrl(host, req_url):
                 return
 
+        # 把请求发给主动扫描模块
+        if toolFlag in self.tags.getWhiteListModule():
+            self._callbacks.doActiveScan(host, port, is_https, request)
+
+            print('')
+            print('===================================')
+            print(u'来至模块: %s' % (MODULE[toolFlag]))
+            print(u'请求方法: %s' % (req_method))
+            print(u'请求转发成功 url: %s' % (req_url))
+            print('===================================')
+            print('')
+
         # 将请求转发给xray
         if self.tags.xrayIsSelect() == True:
             # 这里有个线程池，或许可以把timeout调小一点，毕竟这里只是转发
@@ -137,18 +149,6 @@ class BurpExtender(IBurpExtender, IHttpListener):
             print('')
             print('===================================')
             print(u'请求转发xray成功 url: %s' % (req_url))
-            print('===================================')
-            print('')
-
-        # 把请求发给主动扫描模块
-        if toolFlag in self.tags.getWhiteListModule():
-            self._callbacks.doActiveScan(host, port, is_https, request)
-
-            print('')
-            print('===================================')
-            print(u'来至模块: %s' % (MODULE[toolFlag]))
-            print(u'请求方法: %s' % (req_method))
-            print(u'请求转发成功 url: %s' % (req_url))
             print('===================================')
             print('')
 

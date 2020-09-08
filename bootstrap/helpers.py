@@ -67,18 +67,18 @@ def blackUrlList():
 # url黑名单参数删除
 def urlBlacklistDel(url):
     parsed = urlparse.urlsplit(url)
-
     i = 0
     url_parsed_parameter = ''
     if parsed.query != '':
         for parsed_parameter_list in parsed.query.split('&'):
             parameter_list = parsed_parameter_list.split('=', 1)
-            if parameter_list[0] not in ForwardRequestsConfig.BLACKLIST_PARAMETER_LIST:
-                i = i+1
-                if i == 1:
-                    url_parsed_parameter = '?' + url_parsed_parameter + parameter_list[0] + '=' + parameter_list[1]
-                else:
-                    url_parsed_parameter = url_parsed_parameter + '&' + parameter_list[0] + '=' + parameter_list[1]
+            if len(parameter_list[0]) != 0:
+                if parameter_list[0] not in ForwardRequestsConfig.BLACKLIST_PARAMETER_LIST:
+                    i = i+1
+                    if i == 1:                    
+                        url_parsed_parameter = '?' + url_parsed_parameter + parameter_list[0] + '=' + parameter_list[1]
+                    else:
+                        url_parsed_parameter = url_parsed_parameter + '&' + parameter_list[0] + '=' + parameter_list[1]
     
     return parsed.scheme + '://' + parsed.netloc + parsed.path + url_parsed_parameter
     
