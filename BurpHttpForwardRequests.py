@@ -53,7 +53,7 @@ class BurpExtender(IBurpExtender, IHttpListener):
             return
 
         # 是否转发请求的判断
-        if toolFlag not in self.tags.getWhiteListModule() and self.tags.xrayIsSelect() == False:
+        if self.tags.getWhiteListModule() not in [] and self.tags.xrayIsSelect() == False:
             return
 
         # 获取请求包返回的服务信息
