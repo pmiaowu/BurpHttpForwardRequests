@@ -140,6 +140,10 @@ class BurpExtender(IBurpExtender, IHttpListener):
 
         # 将请求转发给xray
         if self.tags.xrayIsSelect() == True:
+            # 防止其他模块的请求重复进行转发
+            if toolFlag not in [6, 64]:
+                return
+
             # 这里有个线程池，或许可以把timeout调小一点，毕竟这里只是转发
             xray_address = self.tags.xrayAddress().split(":")
             proxy_str = (xray_address[0], int(xray_address[1]))
