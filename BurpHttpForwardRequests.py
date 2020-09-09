@@ -5,7 +5,9 @@ from burp import IBurpExtender
 from burp import IHttpListener
 
 from application.tag import tag
+
 from application.hackhttp import hackhttp
+from application.hackhttp import xrayError
 
 import bootstrap.helpers as helpers
 import sys
@@ -14,7 +16,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 NAME = u'http请求转发插件'
-VERSION = '1.3.2'
+VERSION = '1.3.3'
 
 MODULE = {4: 'proxy', 64: 'repeater'}
 
@@ -141,20 +143,14 @@ class BurpExtender(IBurpExtender, IHttpListener):
         # 将请求转发给xray
         if self.tags.xrayIsSelect() == True:
             # 防止其他模块的请求重复进行转发
-            if toolFlag not in [6, 64]:
+            if toolFlag != 4:
                 return
 
             # 这里有个线程池，或许可以把timeout调小一点，毕竟这里只是转发
             xray_address = self.tags.xrayAddress().split(":")
             proxy_str = (xray_address[0], int(xray_address[1]))
             hh = hackhttp()
-            hh.http(url=req_url,raw=request,proxy=proxy_str)
-
-            print('')
-            print('===================================')
-            print(u'请求转发xray成功 url: %s' % (req_url))
-            print('===================================')
-            print('')
+            self.xrayErrorInfo(hh.http(url=req_url,raw=request,proxy=proxy_str),req_url)
 
     # 获取请求包返回的服务信息
     def getServerInfo(self, httpService):
@@ -196,3 +192,36 @@ class BurpExtender(IBurpExtender, IHttpListener):
         res_bodys = response[analyzedResponse.getBodyOffset():].tostring() 
 
         return res_headers, res_status_code, res_stated_mime_type, res_bodys
+
+    # 获取xray转发的结果,有异常就输出
+    def xrayErrorInfo(self,http,req_url):
+        try:
+            status, retheader, body, redirect, log = http
+            if status > 404:
+                if "<title>X-Ray</title>" in body:
+                    xrayerror = body.split("<p>")[1].split("</p>")[0]
+                    xrayerror = xrayerror.replace("&#34;", '"')
+                    raise xrayError(xrayerror)
+
+            print('')
+            print('===================================')
+            print(u'请求转发xray成功 url: %s' % (req_url))
+            print('===================================')
+            print('')
+
+        # 获取xray能处理的异常并输出，造成此异常的原因很可能是网络环境，此异常由人工排查处理
+        except xrayError as e:
+            print('')
+            print('===================================')
+            print(u'xray与目标链接有异常，原因是: %s， url是：%s' % (e,req_url))
+            print('===================================')
+            print('')
+
+        # 获取xray不能处理的异常并输出，造成此异常的原因很可能是畸形数据包或者数据包被强行丢弃/超时，此异常由人工排查处理
+        except Exception as e:
+            print('')
+            print('===================================')
+            print(u'xray与目标链接有异常，原因是: xray与目标的链接被阻断，或者目标返回的数据包畸形, url是：%s' % (req_url))
+            print('===================================')
+            print('')
+            raise e

@@ -69,7 +69,7 @@ class httpconpool():
     maxconnectpool = 20
     lock = threading.Lock()
 
-    def __init__(self, maxconnectpool=20, timeout=10):
+    def __init__(self, maxconnectpool=20, timeout=31):
         self.maxconnectpool = maxconnectpool
         self.timeout = timeout
         self.protocol = []
@@ -170,7 +170,7 @@ class hackhttp():
         """
         self.throw_exception = throw_exception
         if conpool is None:
-            self.conpool = httpconpool(10)
+            self.conpool = httpconpool(30)
         else:
             self.conpool = conpool
         Cookie.Morsel = MorselHook
@@ -424,6 +424,7 @@ class hackhttp():
                     'Content-Length'] = tmpheaders.get('Content-Length', 0)
                 if method == 'GET':
                     del tmpheaders['Content-Length']
+
             con.request(method, path, post, tmpheaders)
             rep = con.getresponse()
             body = rep.read()
@@ -520,8 +521,15 @@ class hackhttp():
         if content_type.startswith("application/json"):
             rawbody = raw.readline()
 
-        headers['Host'] = host
+        headers['Host'] = host + ":" + str(port)
         headers['Content-Length'] = str(len(rawbody))
         return self._http(
             url, post=rawbody, headers=headers, method=command,
             proxy=proxy, cookcookie=cookcookie, location=location)
+
+class xrayError(Exception):
+    "this is user's Exception for check the length of name "
+    def __init__(self,error):
+        self.error = error
+    def __str__(self):
+        return self.error
