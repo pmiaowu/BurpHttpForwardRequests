@@ -16,7 +16,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 NAME = u'http请求转发插件'
-VERSION = '1.3.3'
+VERSION = '1.3.4'
 
 MODULE = {4: 'proxy', 64: 'repeater'}
 
@@ -55,7 +55,7 @@ class BurpExtender(IBurpExtender, IHttpListener):
             return
 
         # 是否转发请求的判断
-        if self.tags.getWhiteListModule() not in [] and self.tags.xrayIsSelect() == False:
+        if self.tags.getWhiteListModule() in [] and self.tags.xrayIsSelect() == False:
             return
 
         # 获取请求包返回的服务信息
